@@ -39,5 +39,6 @@ dependencies[] = devel
 dependencies[] = entity
 dependencies[] = entityreference
 dependencies[] = features
+dependencies[] = admin_menu
 
 files[] = repequity.profile
