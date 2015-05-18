@@ -1,0 +1,43 @@
+; $Id$
+name = RepEquity
+description = Base modules and configuration for RepEquity sites
+version = VERSION
+core = 7.x
+dependencies[] = block
+dependencies[] = comment
+dependencies[] = contextual
+dependencies[] = dashboard
+dependencies[] = help
+dependencies[] = image
+dependencies[] = list
+dependencies[] = menu
+dependencies[] = number
+dependencies[] = options
+dependencies[] = path
+dependencies[] = taxonomy
+dependencies[] = dblog
+dependencies[] = search
+dependencies[] = shortcut
+dependencies[] = toolbar
+dependencies[] = field_ui
+dependencies[] = file
+dependencies[] = rdf
+
+dependencies[] = pantheon_api
+dependencies[] = pantheon_login
+
+dependencies[] = ctools
+dependencies[] = views
+dependencies[] = webform
+dependencies[] = ckeditor
+dependencies[] = libraries
+dependencies[] = metatag
+dependencies[] = pathauto
+dependencies[] = link
+dependencies[] = date
+dependencies[] = devel
+dependencies[] = entity
+dependencies[] = entityreference
+dependencies[] = features
+
+files[] = repequity.profile
