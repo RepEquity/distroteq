@@ -1,6 +1,6 @@
 <?php
 
-function pantheon_install_tasks($install_state) {
+function repequity_install_tasks($install_state) {
   $tasks = array (
     'repequity_configure' => array(),
   );
