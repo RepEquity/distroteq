@@ -29,6 +29,9 @@ function repequity_configure() {
   );
   variable_set('admin_menu_components', $admin_menu);
   variable_set('user_register', USER_REGISTER_ADMINISTRATORS_ONLY);
+  variable_set('admin_menu_margin_top', 1);
+  variable_set('admin_menu_position_fixed', 1);
+  variable_set('admin_menu_cache_client', 1);
 
   drupal_set_message(t('RepEquity defaults configured.'));
 }
