@@ -28,5 +28,7 @@ function repequity_configure() {
     'shortcut.links' => TRUE,
   );
   variable_set('admin_menu_components', $admin_menu);
+  variable_set('user_register', USER_REGISTER_ADMINISTRATORS_ONLY);
+
   drupal_set_message(t('RepEquity defaults configured.'));
 }

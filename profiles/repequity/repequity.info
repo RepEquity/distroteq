@@ -40,5 +40,6 @@ dependencies[] = entity
 dependencies[] = entityreference
 dependencies[] = features
 dependencies[] = admin_menu
+dependencies[] = xmlsitemap
 
 files[] = repequity.profile
