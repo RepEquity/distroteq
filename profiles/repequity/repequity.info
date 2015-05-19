@@ -33,7 +33,6 @@ dependencies[] = libraries
 dependencies[] = metatag
 dependencies[] = pathauto
 dependencies[] = link
-dependencies[] = date
 dependencies[] = devel
 dependencies[] = entity
 dependencies[] = entityreference
