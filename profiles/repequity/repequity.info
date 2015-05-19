@@ -42,5 +42,14 @@ dependencies[] = admin_menu
 dependencies[] = admin_menu_toolbar
 dependencies[] = xmlsitemap
 dependencies[] = module_filter
+dependencies[] = admin_views
+dependencies[] = bean
+dependencies[] = views_bulk_operations
+dependencies[] = better_exposed_filters
+dependencies[] = block_class
+dependencies[] = blockify
+dependencies[] = breakpoints
+dependencies[] = menu_attributes
+dependencies[] = picture
 
 files[] = repequity.profile
