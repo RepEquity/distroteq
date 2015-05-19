@@ -1,0 +1,3 @@
+[submodule "profiles/repequity/themes/boom"]
+	path = profiles/repequity/themes/boom
+	url = https://github.com/RepEquity/Boom.git
