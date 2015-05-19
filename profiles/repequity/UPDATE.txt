@@ -1,0 +1,11 @@
+To update this distribution...
+
+1) cd into this upstream
+2) Pull the latest core changes from Pantheon: git pull git://github.com/pantheon-systems/drops-7.git master
+3) Push those changes: git commit -m “Update to Drupal 7.47. http://link-to-release-notes” git push origin update
+4) Update any contributed modules
+5) Push those changes using the same method
+
+More information here:
+
+https://pantheon.io/docs/articles/organizations/managing-upstreams/
