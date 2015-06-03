@@ -53,4 +53,6 @@ dependencies[] = breakpoints
 dependencies[] = menu_attributes
 dependencies[] = picture
 
+dependencies[] = distroteq_blacklist
+
 files[] = repequity.profile
