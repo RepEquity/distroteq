@@ -1,0 +1,4 @@
+name = Distroteq Blacklist
+description = "Prevents the modules provided by the distro to show up in the module update page so they can be updated directly by the distro."
+package = Distroteq
+core = 7.x
