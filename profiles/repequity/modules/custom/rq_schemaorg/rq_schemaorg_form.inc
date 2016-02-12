@@ -430,179 +430,265 @@ function rq_schemaorg_form_submit($form, &$form_state) {
     variable_set('schemaorg_review_rating_' . $i, $form_state['values']['reviews']['review_' . $i]['schemaorg_review_rating_' . $i][$i]);
   }
 
-  // Construct the social media profiles snippet
-  $social_media_profile = '';
-  $social_media_profile .= '<script type="application/ld+json">';
-  $social_media_profile .= '// social media profiles';
-  $social_media_profile .= '{';
-  $social_media_profile .= '  "@context" : "http://schema.org",';
-  $social_media_profile .= '  "@type" : "Organization",';
-  $social_media_profile .= '  "name" : "' . variable_get('schemaorg_name', '') . '",';
-  $social_media_profile .= '  "url" : "' . variable_get('schemaorg_url', '') . '",';
-  $social_media_profile .= '  "sameAs" : [';
-  for ($i = 0; $i <= $social_media_links_count; $i++) {
-    $social_media_profile .= variable_get('schemaorg_social_media_entry_' . $i, '');
+$rq_schemaorg_site_name = variable_get('schemaorg_name', '');
+$rq_schemaorg_site_url = variable_get('schemaorg_url', '');
+$rq_schemaorg_site_logo = variable_get('schemaorg_logo', '');
+$rq_schemaorg_site_search_path = variable_get('schemaorg_search_path', '');
+$rq_schemaorg_address_street = variable_get('schemaorg_address_street', '');
+$rq_schemaorg_address_city = variable_get('schemaorg_address_city', '');
+$rq_schemaorg_address_state = variable_get('schemaorg_address_state', '');
+$rq_schemaorg_address_zip = variable_get('schemaorg_address_zip', '');
+$rq_schemaorg_address_country = variable_get('schemaorg_address_country', '');
+$rq_schemaorg_latitude = variable_get('schemaorg_latitude', '');
+$rq_schemaorg_longitude = variable_get('schemaorg_longitude', '');
+$rq_schemaorg_phone_number = variable_get('schemaorg_phone_number', '');
+$rq_schemaorg_hours_Monday_opens = variable_get('schemaorg_hours_Monday_opens', '');
+$rq_schemaorg_hours_Monday_closes = variable_get('schemaorg_hours_Monday_closes', '');
+$rq_schemaorg_hours_Tuesday_opens = variable_get('schemaorg_hours_Tuesday_opens', '');
+$rq_schemaorg_hours_Tuesday_closes = variable_get('schemaorg_hours_Tuesday_closes', '');
+$rq_schemaorg_hours_Wednesday_opens = variable_get('schemaorg_hours_Wednesday_opens', '');
+$rq_schemaorg_hours_Wednesday_closes = variable_get('schemaorg_hours_Wednesday_closes', '');
+$rq_schemaorg_hours_Thursday_opens = variable_get('schemaorg_hours_Thursday_opens', '');
+$rq_schemaorg_hours_Thursday_closes = variable_get('schemaorg_hours_Thursday_closes', '');
+$rq_schemaorg_hours_Friday_opens = variable_get('schemaorg_hours_Friday_opens', '');
+$rq_schemaorg_hours_Friday_closes = variable_get('schemaorg_hours_Friday_closes', '');
+$rq_schemaorg_hours_Saturday_opens = variable_get('schemaorg_hours_Saturday_opens', '');
+$rq_schemaorg_hours_Saturday_closes = variable_get('schemaorg_hours_Saturday_closes', '');
+$rq_schemaorg_hours_Sunday_opens = variable_get('schemaorg_hours_Sunday_opens', '');
+$rq_schemaorg_hours_Sunday_closes = variable_get('schemaorg_hours_Sunday_closes', '');
+
+// Construct the social media profiles snippet
+$social_media_profile =
+<<<EOL
+
+<script type="application/ld+json">
+  // social media profiles
+  {
+    "@context" : "http://schema.org",
+    "@type" : "Organization",
+    "name" : "$rq_schemaorg_site_name",
+    "url" : "$rq_schemaorg_site_url",
+    "sameAs" : [
+EOL;
+
+for ($i = 0; $i <= $social_media_links_count; $i++) {
+  $social_media_profile .= variable_get('schemaorg_social_media_entry_' . $i, '');
+}
+
+$social_media_profile .=
+<<<EOL
+      }
+    ]
   }
-  $social_media_profile .= '  ]';
-  $social_media_profile .= '}';
-  $social_media_profile .= '</script>';
+</script>
 
-  // Construct the logo snippet
-  $schema_logo = '';
-  $schema_logo .= '<script type="application/ld+json">';
-  $schema_logo .= '// logo';
-  $schema_logo .= '{';
-  $schema_logo .= '  "@context": "http://schema.org",';
-  $schema_logo .= '  "@type": "Organization",';
-  $schema_logo .= '  "url": "' . variable_get('schemaorg_url', '') . '",';
-  $schema_logo .= '  "logo": "' . variable_get('schemaorg_logo', '') . '"';
-  $schema_logo .= '}';
-  $schema_logo .= '</script>';
+EOL;
 
-  // Construct the search snippet
-  $schema_search = '';
-  $schema_search .= '<script type="application/ld+json">';
-  $schema_search .= '// Search';
-  $schema_search .= '{';
-  $schema_search .= '  "@context": "http://schema.org",';
-  $schema_search .= '  "@type": "WebSite",';
-  $schema_search .= '  "url": "' . variable_get('schemaorg_url', '') . '",';
-  $schema_search .= '  "potentialAction": {';
-  $schema_search .= '    "@type": "SearchAction",';
-  $schema_search .= '    "target": "' . variable_get('schemaorg_search_path', '') . '",';
-  $schema_search .= '    "query-input": "required name=search_term_string"';
-  $schema_search .= '  }';
-  $schema_search .= '}';
-  $schema_search .= '</script>';
+if ($social_media_links_count == 0) {
+  $social_media_profile = '';
+}
 
-  // Construct the LocalBusiness snippet
-  $schema_local_business = '<script type="application/ld+json">';
-  $schema_local_business .= '// LocalBusiness';
-  $schema_local_business .= '{';
-  $schema_local_business .= '  "@context": "http://schema.org",';
-  $schema_local_business .= '  "@type": "LocalBusiness",';
-  $schema_local_business .= '  "@id": "' . variable_get('schemaorg_url', '') . '",';
-  $schema_local_business .= '  "name": "' . variable_get('schemaorg_name', '') . '",';
-  $schema_local_business .= '  "address": {';
-  $schema_local_business .= '    "@type": "PostalAddress",';
-  $schema_local_business .= '    "streetAddress": "' . variable_get('schemaorg_address_street', '') . '",';
-  $schema_local_business .= '    "addressLocality": "' . variable_get('schemaorg_address_city', '') . '",';
-  $schema_local_business .= '    "addressRegion": "' . variable_get('schemaorg_address_state', '') . '",';
-  $schema_local_business .= '    "postalCode": "' . variable_get('schemaorg_address_zip', '') . '",';
-  $schema_local_business .= '    "addressCountry": "' . variable_get('schemaorg_address_country', '') . '"';
-  $schema_local_business .= '  },';
-  $schema_local_business .= '  "geo": {';
-  $schema_local_business .= '    "@type": "GeoCoordinates",';
-  $schema_local_business .= '    "latitude": ' . variable_get('schemaorg_latitude', '') . ',';
-  $schema_local_business .= '    "longitude": ' . variable_get('schemaorg_longitude', '') . '';
-  $schema_local_business .= '  },';
-  $schema_local_business .= '  "url": "' . variable_get('schemaorg_url', '') . '",';
-  $schema_local_business .= '  "telephone": "' . variable_get('schemaorg_phone_number', '') . '",';
-  $schema_local_business .= '  "openingHoursSpecification": [';
-  $schema_local_business .= '    {';
-  $schema_local_business .= '      "@type": "OpeningHoursSpecification",';
-  $schema_local_business .= '      "dayOfWeek": [';
-  $schema_local_business .= '        "Monday"';
-  $schema_local_business .= '      ],';
-  $schema_local_business .= '      "opens": "' . variable_get('schemaorg_hours_Monday_opens', '') . '"';
-  $schema_local_business .= '      "closes": "' . variable_get('schemaorg_hours_Monday_closes', '') . '"';
-  $schema_local_business .= '    },';
-  $schema_local_business .= '    {';
-  $schema_local_business .= '      "@type": "OpeningHoursSpecification",';
-  $schema_local_business .= '      "dayOfWeek": [';
-  $schema_local_business .= '        "Tuesday"';
-  $schema_local_business .= '      ],';
-  $schema_local_business .= '      "opens": "' . variable_get('schemaorg_hours_Tuesday_opens', '') . '",';
-  $schema_local_business .= '      "closes": "' . variable_get('schemaorg_hours_Tuesday_closes', '') . '"';
-  $schema_local_business .= '    },';
-  $schema_local_business .= '    {';
-  $schema_local_business .= '      "@type": "OpeningHoursSpecification",';
-  $schema_local_business .= '      "dayOfWeek": [';
-  $schema_local_business .= '        "Wednesday"';
-  $schema_local_business .= '      ],';
-  $schema_local_business .= '      "opens": "' . variable_get('schemaorg_hours_Wednesday_opens', '') . '",';
-  $schema_local_business .= '      "closes": "' . variable_get('schemaorg_hours_Wednesday_closes', '') . '"';
-  $schema_local_business .= '    },';
-  $schema_local_business .= '    {';
-  $schema_local_business .= '      "@type": "OpeningHoursSpecification",';
-  $schema_local_business .= '      "dayOfWeek": [';
-  $schema_local_business .= '        "Thursday"';
-  $schema_local_business .= '      ],';
-  $schema_local_business .= '      "opens": "' . variable_get('schemaorg_hours_Thursday_opens', '') . '",';
-  $schema_local_business .= '      "closes": "' . variable_get('schemaorg_hours_Thursday_closes', '') . '"';
-  $schema_local_business .= '    },';
-  $schema_local_business .= '    {';
-  $schema_local_business .= '      "@type": "OpeningHoursSpecification",';
-  $schema_local_business .= '      "dayOfWeek": [';
-  $schema_local_business .= '        "Friday"';
-  $schema_local_business .= '      ],';
-  $schema_local_business .= '      "opens": "' . variable_get('schemaorg_hours_Friday_opens', '') . '",';
-  $schema_local_business .= '      "closes": "' . variable_get('schemaorg_hours_Friday_closes', '') . '"';
-  $schema_local_business .= '    },';
-  $schema_local_business .= '    {';
-  $schema_local_business .= '      "@type": "OpeningHoursSpecification",';
-  $schema_local_business .= '      "dayOfWeek": [';
-  $schema_local_business .= '        "Saturday"';
-  $schema_local_business .= '      ],';
-  $schema_local_business .= '      "opens": "' . variable_get('schemaorg_hours_Saturday_opens', '') . '",';
-  $schema_local_business .= '      "closes": "' . variable_get('schemaorg_hours_Saturday_closes', '') . '"';
-  $schema_local_business .= '    },';
-  $schema_local_business .= '    {';
-  $schema_local_business .= '      "@type": "OpeningHoursSpecification",';
-  $schema_local_business .= '      "dayOfWeek": [';
-  $schema_local_business .= '        "Sunday"';
-  $schema_local_business .= '      ],';
-  $schema_local_business .= '      "opens": "' . variable_get('schemaorg_hours_Sunday_opens', '') . '",';
-  $schema_local_business .= '      "closes": "' . variable_get('schemaorg_hours_Sunday_closes', '') . '"';
-  $schema_local_business .= '    }';
-  $schema_local_business .= '  ]';
-  $schema_local_business .= '}';
-  $schema_local_business .= '</script>';
+// Construct the logo snippet
+$schema_logo =
+<<<EOL
 
-  // Construct the reviews snippet
-  $schema_reviews = '<script type="application/ld+json">';
-  $schema_reviews .= '// Reviews';
-  $schema_reviews .= '{';
-  $schema_reviews .= '  "@context": "http://schema.org",';
-  $schema_reviews .= '  "@type": "Website",';
-  $schema_reviews .= '  "mainEntity": {';
-  $schema_reviews .= '    "@type": "Organization",';
-  $schema_reviews .= '    "aggregateRating": {';
-  $schema_reviews .= '      "@type": "AggregateRating",';
-  $schema_reviews .= '      "ratingValue": "' . variable_get('schemaorg_reviews_aggregate_value', '') . '",';
-  $schema_reviews .= '      "reviewCount": "' . variable_get('schemaorg_reviews_aggregate_count', '') . '"';
-  $schema_reviews .= '    },';
-  $schema_reviews .= '    "review": [';
+<script type="application/ld+json">
+// logo
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "url": "$rq_schemaorg_site_url",
+  "logo": "$rq_schemaorg_site_logo"
+}
+</script>
 
-  // Count the number of submitted reviews
-  $reviews_count = count($form_state['values']['reviews']);
+EOL;
+
+// Construct the search snippet
+$schema_search =
+<<<EOL
+
+<script type="application/ld+json">
+// Search
+{
+  "@context": "http://schema.org",
+  "@type": "WebSite",
+  "url": "$rq_schemaorg_site_url",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "$rq_schemaorg_site_search_path",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
+EOL;
+
+// Construct the LocalBusiness snippet
+$schema_local_business =
+<<<EOL
+
+<script type="application/ld+json">
+// LocalBusiness
+{
+  "@context": "http://schema.org",
+  "@type": "LocalBusiness",
+  "@id": "$rq_schemaorg_url",
+  "name": "$rq_schemaorg_name",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "$rq_schemaorg_address_street",
+    "addressLocality": "$rq_schemaorg_address_city",
+    "addressRegion": "$rq_schemaorg_address_state",
+    "postalCode": "$rq_schemaorg_address_zip",
+    "addressCountry": "$rq_schemaorg_address_country"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": $rq_schemaorg_latitude,
+    "longitude": $rq_schemaorg_longitude
+  },
+  "url": "$rq_schemaorg_url",
+  "telephone": "$rq_schemaorg_phone_number",
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday"
+      ],
+      "opens": "$rq_schemaorg_hours_Monday_opens",
+      "closes": "$rq_schemaorg_hours_Monday_closes"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Tuesday"
+      ],
+      "opens": "$rq_schemaorg_hours_Tuesday_opens",
+      "closes": "$rq_schemaorg_hours_Tuesday_closes"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Wednesday"
+      ],
+      "opens": "$rq_schemaorg_hours_Wednesday_opens",
+      "closes": "$rq_schemaorg_hours_Wednesday_closes"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Thursday"
+      ],
+      "opens": "$rq_schemaorg_hours_Thursday_opens",
+      "closes": "$rq_schemaorg_hours_Thursday_closes"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Friday"
+      ],
+      "opens": "$rq_schemaorg_hours_Friday_opens",
+      "closes": "$rq_schemaorg_hours_Friday_closes"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Saturday"
+      ],
+      "opens": "$rq_schemaorg_hours_Saturday_opens",
+      "closes": "$rq_schemaorg_hours_Saturday_closes"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Sunday"
+      ],
+      "opens": "$rq_schemaorg_hours_Sunday_opens",
+      "closes": "$rq_schemaorg_hours_Sunday_closes"
+    }
+  ]
+}
+</script>
+
+EOL;
+
+
+// Construct the reviews snippet
+$schema_reviews =
+<<<EOL
+
+<script type="application/ld+json">
+// Reviews
+{
+  "@context": "http://schema.org",
+  "@type": "Website",
+  "mainEntity": {
+    "@type": "Organization",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "$rq_schemaorg_reviews_aggregate_value",
+      "reviewCount": "$rq_schemaorg_reviews_aggregate_count"
+    },
+    "review": [
+
+EOL;
+
   // Loop over the reviews
-  for ($i = 0; $i < $reviews_count; $i++) {
-    $schema_reviews .= '      {';
-    $schema_reviews .= '        "@type": "Review",';
-    $schema_reviews .= '        "author": "' . variable_get('schemaorg_review_author_' . $i, '') . '",';
-    $schema_reviews .= '        "name": "' . variable_get('schemaorg_review_name_' . $i, '') . '",';
-    $schema_reviews .= '        "reviewBody": "' . variable_get('schemaorg_review_body_' . $i, '') . '",';
-    $schema_reviews .= '        "reviewRating": {';
-    $schema_reviews .= '          "@type": "Rating",';
-    $schema_reviews .= '          "ratingValue": "' . variable_get('schemaorg_review_rating_' . $i, '') . '"';
-    $schema_reviews .= '        }';
+  for ($i = 0; $i <= $reviews_count; $i++) {
+    $temp_author = variable_get('schemaorg_review_author_' . $i, '');
+    $temp_name = variable_get('schemaorg_review_name_' . $i, '');
+    $temp_body = variable_get('schemaorg_review_body_' . $i, '');
+    $temp_rating = variable_get('schemaorg_review_rating_' . $i, '');
+
+$schema_reviews .=
+<<<EOL
+
+{
+  "@type": "Review",
+  "author": "$temp_author",
+  "name": "$temp_name",
+  "reviewBody": "$temp_body",
+  "reviewRating": {
+    "@type": "Rating",
+    "ratingValue": "$temp_rating"
+  }
+
+EOL;
+
     // Check to see if this is the last item
     if ($i == $reviews_count) {
-      $schema_reviews .= '      }';
+      $schema_reviews .= '}';
     }
     else {
-      $schema_reviews .= '      },';
+      $schema_reviews .= '},';
     }
   }
 
-  $schema_reviews .= '    ]';
-  $schema_reviews .= '  }';
-  $schema_reviews .= '}';
-  $schema_reviews .= '</script>';
+$schema_reviews .=
+<<<EOL
+
+      ]
+    }
+  }
+  </script>
+
+EOL;
+
+if ($reviews_count == 0) {
+  $schema_reviews = '';
+}
+
+  $schemaorg_content =
+<<<EOL
+$social_media_profile
+$schema_logo
+$schema_local_business
+$schema_reviews
+EOL;
 
   // Add all compiled content to the primary variable for later recall
-  variable_set('schemaorg_content', $social_media_profile . $schema_logo . $schema_local_business . $schema_reviews);
+  variable_set('schemaorg_content', $schemaorg_content);
   variable_set('schemaorg_content_front_only', $schema_search);
 
   drupal_set_message(t('Form submitted!'));
