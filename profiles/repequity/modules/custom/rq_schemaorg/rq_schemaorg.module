@@ -1,0 +1,79 @@
+<?php
+
+/**
+ * @file
+ * rq_schemaorg/rq_schemaorg.module
+ * Handle menu and actual js injection
+ */
+
+/**
+ * Implements hook_page_alter().
+ */
+function rq_schemaorg_page_alter(&$page) {
+
+  // Get the schema tags
+  $schema_tags = variable_get('schemaorg_content', '');
+
+
+  // Add the tags to the inline script
+  $inline_script =
+<<<EOL
+  $schema_tags
+EOL;
+
+  // Prepare the element for the head with the inline script
+  $element = array(
+    '#type' => 'markup',
+    '#markup' => $inline_script,
+  );
+
+  if (drupal_is_front_page()) {
+
+    // Get the schema tags
+    $schema_tags_front = variable_get('schemaorg_content_front_only', '');
+
+  // Add the tags to the inline script for front page content only
+  $inline_script_front =
+<<<EOL
+  $schema_tags_front
+EOL;
+
+    // Prepare the front page element for the head with the inline script
+    $element_front = array(
+      '#type' => 'markup',
+
+      '#markup' => $inline_script_front . $inline_script,
+    );
+
+    // Inject the schema tags
+    drupal_add_html_head($element_front, 'schemaorg');
+
+  }
+  else {
+
+    // Inject the schema tags
+    drupal_add_html_head($element, 'schemaorg');
+
+  }
+
+}
+
+/**
+ * Implements hook_menu().
+ */
+function rq_schemaorg_menu() {
+
+  $items = array();
+
+  $items['admin/config/search/rq_schemaorg'] = array(
+    'title' => 'REQ Schema.org',
+    'description' => 'Configure Schema.org info.',
+    'page callback' => 'drupal_get_form',
+    'file' => 'rq_schemaorg_form.inc',
+    'page arguments' => array('rq_schemaorg_form'),
+    'access arguments' => array('administer rq_schemaorg settings'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}

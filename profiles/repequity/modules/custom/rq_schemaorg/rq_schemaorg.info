@@ -1,0 +1,4 @@
+name = RepEquity Schema.org Module
+description = Module to insert Schema.org data into a drupal site.
+core = 7.x
+package = RepEquity
