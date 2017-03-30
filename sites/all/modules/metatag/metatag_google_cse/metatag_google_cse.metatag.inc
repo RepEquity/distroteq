@@ -30,7 +30,6 @@ function metatag_google_cse_metatag_info() {
   $info['tags']['thumbnail'] = array(
     'label' => t('Thumbnail'),
     'description' => t('Use a url of a valid image.'),
-    'image' => TRUE,
     'weight' => ++$weight,
   ) + $tag_info_defaults;
 
@@ -42,19 +41,19 @@ function metatag_google_cse_metatag_info() {
 
   $info['tags']['audience'] = array(
     'label' => t('Content audience'),
-    'description' => t('The content audience, e.g. "all".'),
+    'description' => t('The conten audience, for example: all'),
     'weight' => ++$weight,
   ) + $tag_info_defaults;
 
   $info['tags']['doc_status'] = array(
     'label' => t('Document status'),
-    'description' => t('The document status, e.g. "draft".'),
+    'description' => t('The Document status, for example: draft.'),
     'weight' => ++$weight,
   ) + $tag_info_defaults;
 
   $info['tags']['google_rating'] = array(
     'label' => t('Results sorting'),
-    'description' => t('Works only with numeric values.'),
+    'description' => t('Works only with numeric values'),
     'weight' => ++$weight,
   ) + $tag_info_defaults;
 

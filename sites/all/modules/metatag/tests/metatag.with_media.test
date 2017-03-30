@@ -1,8 +1,9 @@
 <?php
-
 /**
+ * @file
  * Tests for the Metatag module for Media integration.
  */
+
 class MetatagCoreWithMediaTest extends MetatagTestHelper {
 
   /**

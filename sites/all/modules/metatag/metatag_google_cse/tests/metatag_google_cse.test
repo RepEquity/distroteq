@@ -1,9 +1,13 @@
 <?php
+/**
+ * @file
+ * Tests for the Metatag Mobile module.
+ */
 
 /**
- * Tests for the Metatag Google CSE module.
+ * MetatagMobileTest for Google CSE. 
  */
-class MetatagGoogleCSETest extends MetatagTestHelper {
+class MetatagMobileTest extends MetatagTestHelper {
 
   /**
    * {@inheritdoc}

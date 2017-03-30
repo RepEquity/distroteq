@@ -1,10 +1,10 @@
 <?php
-
 /**
- * Tests for Metatag for when i18n is enabled but not actually configured.
+ * @file
+ * Tests for the Metatag module to ensure i18n integration doesn't break.
  */
-class MetatagCoreWithI18nDisabledTest extends MetatagTestHelper {
 
+class MetatagCoreWithI18nDisabledTest extends MetatagTestHelper {
   /**
    * {@inheritdoc}
    */

@@ -1,8 +1,9 @@
 <?php
-
 /**
- * Tests for hreflang handle when Entity Translation is used.
+ * @file
+ * Tests for the Metatag module to ensure the hreflang meta tags work correctly.
  */
+
 class MetatagHreflangWithEntityTranslationTest extends MetatagTestHelper {
 
   /**
